@@ -19,7 +19,8 @@ def main():
         return 'problem'
 
 @app.route('/<user>/dash', methods=['GET'])
-def dash(user):
+@app.route('/dash',methods=['GET'])
+def dash(user='Bill'):
     """Returns a dashboard for a particular user"""
     agenda = DB().get_agenda_items()
     return render_template('dash.html', user=user, agenda=agenda)
