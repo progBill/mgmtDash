@@ -1,0 +1,43 @@
+
+
+.forms{ 
+  border: thin; 
+  padding: 10px;
+}
+.forms__agenda_maker{ 
+  background-color: lightgray; 
+  float:left;
+  padding: 10px;
+}
+
+.forms__agenda_maker__input {
+}
+
+
+.topnav{}
+.topnav__logo{}
+.topnav__navopts ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+.topnav__navopts ul li{
+  float: left;
+}
+.topnav__navopts ul li a{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.topnav__navopts ul li a:hover{
+  background-color: #111;
+}
+
+
+.dashboard__agenda{
+  padding: 10px;
+}

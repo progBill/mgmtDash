@@ -6,13 +6,12 @@
 {% block body %}
     <div class="forms">
         <div class="forms__agenda_maker">
-            <form action="/agenda_maker" method=POST >
-                What are we talking about?<input type="text" name="agenda_topic" /><br />
-                When are we talking about it?<input type="text" name="agenda_meeting" /><br />
-                <input type="Submit" value="Commit" />
+            <form action="/agenda_maker" class="pure-form" method="POST" >
+                    <label for="agenda_topic" >What are we talking about?</label><input type="text" class="forms__agenda_maker__input" name="agenda_topic" /><br />
+                    <label for="agenda_meeting" >When are we talking about it?</label><input type="text" class="forms__agenda_maker__input"  name="agenda_meeting" /><br />
+                <input type="Submit" value="Commit" class="pure-button pure-button-primary" />
             </form>
         </div>
-<!--        <iframe src="https://docs.google.com/forms/d/1uEtCWoza39etWljps9-Hd60j5Vn89mVmXmiLjXZRyh4/viewform?embedded=true" width="760" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe> -->
     </div>
 {% endblock %}
 
