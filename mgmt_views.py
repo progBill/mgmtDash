@@ -37,3 +37,13 @@ def agenda_maker():
 
     return dash("Bill")
 
+@app.route('/delete_agenda_item/<agenda_id>', methods=['GET'])
+def delete_agenda_item(agenda_id):
+    """Removes an item with the given id"""
+    DB().remove_agenda_item(agenda_id)
+    return redirect(url_for('/dash'))
+
+
+
+
+

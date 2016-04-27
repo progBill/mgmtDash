@@ -18,6 +18,8 @@ class Database:
         
         return self.conn.cursor()
 
+
+
     #############
     ## QUERIES ##
     #############
@@ -53,7 +55,7 @@ class Database:
     def get_agenda_items(self):
         c = self.get_cursor()
         sql="""
-            SELECT topic, meeting 
+            SELECT topic, meeting, id 
             FROM agenda
         """
         last_week = (datetime.datetime.now()- datetime.timedelta(days=7)).strftime('%Y-%m-%d %H:%M:%S')
@@ -62,6 +64,24 @@ class Database:
         return c.fetchall()
 
 
+
+    def remove_agenda_item(self, agenda_id):
+        c = self.get_cursor()
+        sql="""
+            DELETE FROM agenda WHERE id = %s
+        """
+
+        c.execute(sql, [agenda_id])
+        self.conn.commit()
+        return True
+
+
+
+
 if __name__ == '__main__':
-    db = Database()
+    asdf = Database()
+#    asdf.remove_agenda_item(11)
+    print asdf.get_agenda_items()
+
+
 
