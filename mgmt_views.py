@@ -2,7 +2,10 @@ from flask import (
     Flask, 
     render_template, 
     session,
-    request)
+    request,
+    redirect, 
+    url_for
+)
 from mgmtDash import app
 import json
 from data.data_access import Database as DB
@@ -41,7 +44,7 @@ def agenda_maker():
 def delete_agenda_item(agenda_id):
     """Removes an item with the given id"""
     DB().remove_agenda_item(agenda_id)
-    return redirect(url_for('/dash'))
+    return redirect(url_for('dash'))
 
 
 
