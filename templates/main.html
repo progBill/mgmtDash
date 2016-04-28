@@ -5,7 +5,9 @@
     {% block head %}{% endblock %}
 </head>
 <body>
+    {% if flash %}
     <h1>{{ flash }}</h1>
+    {% endif %}
     {% include 'topnav.html' %}
     {% block body %}{% endblock %}
 </body>
