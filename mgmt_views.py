@@ -15,11 +15,10 @@ from data.data_access import Database as DB
 ###########
 
 @app.route('/', methods=['GET'])
+@app.route('/entry', methods=['GET'])
 def main():
-    try:
-        return render_template('entry.html')
-    except Exception:
-        return 'problem'
+    agenda = DB().get_agenda_items()
+    return render_template('entry.html', agenda=agenda)
 
 @app.route('/<user>/dash', methods=['GET'])
 @app.route('/dash',methods=['GET'])
@@ -32,19 +31,15 @@ def dash(user='Bill'):
 def agenda_maker():
     topic = request.form['agenda_topic']
     meeting=request.form['agenda_meeting']
+    DB().save_agenda_item(topic, meeting)
 
-    try:
-      DB().save_agenda_item(topic, meeting)
-    except Exception:
-      print Exception
-
-    return dash("Bill")
+    return redirect(url_for('main')) 
 
 @app.route('/delete_agenda_item/<agenda_id>', methods=['GET'])
 def delete_agenda_item(agenda_id):
     """Removes an item with the given id"""
     DB().remove_agenda_item(agenda_id)
-    return redirect(url_for('dash'))
+    return redirect(url_for('main'))
 
 
 

@@ -10,12 +10,6 @@
   padding: 10px;
 }
 
-.forms__agenda_maker__input {
-}
-
-
-.topnav{}
-.topnav__logo{}
 .topnav__navopts ul{
   list-style-type: none;
   margin: 0;
@@ -37,7 +31,8 @@
   background-color: #111;
 }
 
-
-.dashboard__agenda{
-  padding: 10px;
+.dashboard{
+  padding-top: 1em;
+  float: left;
 }
+
