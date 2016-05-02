@@ -9,6 +9,8 @@ from flask import (
 from mgmtDash import app
 import json
 from data.data_access import Database as DB
+from data.agenda_item import Agenda_Item
+
 
 ###########
 ## VIEWS ##
@@ -42,6 +44,9 @@ def delete_agenda_item(agenda_id):
     return redirect(url_for('main'))
 
 
+@app.route('/get_agenda_items', methods=['POST','GET'])
+def get_agenda_items():
+    items = [str(Agenda_Item(x[0],x[1])) for x in DB().get_agenda_items()]
 
-
+    return "[" + ",".join(items) + "]"
 
