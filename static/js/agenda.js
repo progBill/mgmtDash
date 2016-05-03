@@ -1,35 +1,72 @@
 //  OUR ANG APP
 var agenda = angular.module('agendaMaker',[]);
 
-//  CONTROLLERS
-agenda.controller('agenda_input',['$scope','$http','ajaxService',function($scope, $http, ajax){
-   var agenda = this;
+//////////////////
+//  CONTROLLERS //
+//////////////////
 
+agenda.controller('agenda_input',['$scope', 'ajaxService',function($scope, ajax){
+    var agenda = this;
+
+    ajax.getAgenda().then(
+        function(d){
+            $scope.agenda = d.data;
+        });
+
+    $scope.saveAgendaItem = function(){
+        ajax.saveAgendaItem({topic: $scope.item.topic, meeting: $scope.item.meeting});
+        $scope.agenda.push({'topic': $scope.item.topic, 'meeting': $scope.item.meeting, 'item_id':-1});
+        $scope.item.topic= null;
+        $scope.item.meeting = null;
+    };
+
+    $scope.removeItem = function( item ){
+        ajax.removeItem( item.item_id );
+        var i = $scope.agenda.indexOf(item);
+        if (i != -1){
+            $scope.agenda.splice(i,1);
+        }
+    };
 
 }]);
 
+///////////////
+//  SERVICES //
+///////////////
 
-//  SERVICES
 agenda.service('ajaxService',
 function($http, $q){
   // public API
   return({
     getAgenda: getAgenda,
-    saveAgendaItem: saveAgendaItem
+    saveAgendaItem: saveAgendaItem,
+    removeItem: removeItem
   });
 
   function getAgenda (){
     var req = $http({
-      method: "post",
-      url: "/get_agenda_items/"
+      method: "POST",
+      url: "/get_agenda_items"
     });
 
     return( req.then(handleSuccess, handleError) );
-
   };
 
-  function saveAgendaItem(){
-    console.log( $scope.agendaMaker.agenda_item );
+  function saveAgendaItem(d){
+    var req = $http({
+      method: "POST",
+      url: "/create_agenda_item",
+      data: d
+    });
+
+    return( req.then(handleSuccess, handleError));
+  };
+
+  function removeItem(id){
+    var req = $http({
+      method: "POST",
+      url: "/delete_agenda_item/" + id
+    });
   };
 
   //  PRIVATE METHODS
@@ -45,21 +82,9 @@ function($http, $q){
   };
 
   function handleSuccess( response ) {
-    return( response.data );
+    return( response );
   };
 
-});
-
-// FILTERS
-
-agenda.filter('meetingOrder',function(){
-    return function(items){
-        var out = [];
-        // TODO: sort by meeting name
-        for (i in items){
-            out.push(i);
-        }
-    }
 });
 
 

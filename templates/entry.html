@@ -3,33 +3,30 @@
 <title>Enter Data</title>
 {% endblock %}
 
-{% block body %}
+{% block body %}{% raw %}
 <div class="pure-u-1-3">
     <div class="forms__agenda_maker" ng-app="agendaMaker">
         <div ng-controller="agenda_input">
         <input type="text" class="forms__agenda_maker__input" name="agenda_topic" placeholder="topic" ng-model="item.topic" />
         <input type="text" class="forms__agenda_maker__input"  name="agenda_meeting" placeholder="meeting" ng-model="item.meeting" /><br />
         <button ng-click="saveAgendaItem()" class="pure-button pure-button-primary">Commit</button>
+        <table class="dashboard__agenda_table pure-table">
+            <thead><tr>
+                <th>Topic</th>
+                <th>Meeting</th>
+                <th>Delete</th>
+            </tr></thead>
+            <tbody>
+                <tr ng-repeat="item in agenda | orderBy: '+meeting'">
+                    <td>{{ item.topic }}</td>
+                    <td>{{ item.meeting }}</td>
+                    <td><a ng-click='removeItem(item)'>X</a></td>
+                </tr>
+            </tbody>
+        </table>
         </div>
     </div>
 </div>
-{% raw %}
-<script type="text/template" id="agenda_items.html">
-    <table class="dashboard__agenda_table pure-table">
-        <thead><tr>
-            <th>Topic</th>
-            <th>Meeting</th>
-            <th>Delete</th>
-        </tr></thead>
-        <tbody>
-            <tr ng-repeat="item in agenda.items | orderBy;'+meeting'">
-                <td>{{ topic }}</td>
-                <td>{{ meeting }}</td>
-                <td><a ng-click="removeItem({{id}})">X</a></td>
-            <tr>
-        </tbody>
-    </table>
-</script>
 {% endraw %}
 {% endblock %}
 

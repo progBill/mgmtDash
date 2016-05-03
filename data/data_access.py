@@ -35,7 +35,6 @@ class Database:
         c.execute(sql, [username, passhash])
 
         if c.rowcount:
-            print c.fetchall
             return True
         else:
             return False
@@ -61,9 +60,9 @@ class Database:
         last_week = (datetime.datetime.now()- datetime.timedelta(days=7)).strftime('%Y-%m-%d %H:%M:%S')
 
         c.execute(sql)
-        return c.fetchall()
+        ret_val = c.fetchall()
 
-
+        return ret_val
 
     def remove_agenda_item(self, agenda_id):
         c = self.get_cursor()

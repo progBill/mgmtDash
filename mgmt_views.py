@@ -11,7 +11,6 @@ import json
 from data.data_access import Database as DB
 from data.agenda_item import Agenda_Item
 
-
 ###########
 ## VIEWS ##
 ###########
@@ -29,24 +28,30 @@ def dash(user='Bill'):
     agenda = DB().get_agenda_items()
     return render_template('dash.html', user=user, agenda=agenda)
 
-@app.route('/agenda_maker', methods=['POST'])
-def agenda_maker():
-    topic = request.form['agenda_topic']
-    meeting=request.form['agenda_meeting']
-    DB().save_agenda_item(topic, meeting)
 
-    return redirect(url_for('main')) 
+################
+## AJAX CALLS ##
+################
 
-@app.route('/delete_agenda_item/<agenda_id>', methods=['GET'])
+@app.route('/get_agenda_items', methods=['POST'])
+def get_agenda_items():
+    items = [str(Agenda_Item(x[0],x[1],x[2])) for x in DB().get_agenda_items()]
+
+    return "[" + ",".join(items) + "]"
+
+@app.route('/delete_agenda_item/<agenda_id>', methods=['DELETE','POST'])
 def delete_agenda_item(agenda_id):
     """Removes an item with the given id"""
     DB().remove_agenda_item(agenda_id)
     return redirect(url_for('main'))
 
+@app.route('/create_agenda_item', methods=['POST'])
+def agenda_maker():
+    new_item = json.loads( request.data )
+    topic = new_item["topic"]
+    meeting = new_item["meeting"]
+    DB().save_agenda_item(topic, meeting)
 
-@app.route('/get_agenda_items', methods=['POST','GET'])
-def get_agenda_items():
-    items = [str(Agenda_Item(x[0],x[1])) for x in DB().get_agenda_items()]
+    return json.dumps({'save':'success'})
 
-    return "[" + ",".join(items) + "]"
 
