@@ -21,11 +21,11 @@ agenda.controller('agenda_input',['$scope', 'ajaxService',function($scope, ajax)
     };
 
     $scope.removeItem = function( item ){
-        ajax.removeItem( item.item_id );
         var i = $scope.agenda.indexOf(item);
         if (i != -1){
             $scope.agenda.splice(i,1);
         }
+        ajax.removeItem( item.item_id );
     };
 
 }]);
@@ -46,7 +46,7 @@ function($http, $q){
   function getAgenda (){
     var req = $http({
       method: "POST",
-      url: "/get_agenda_items"
+      url: "/mgmtDash/get_agenda_items"
     });
 
     return( req.then(handleSuccess, handleError) );
@@ -55,7 +55,7 @@ function($http, $q){
   function saveAgendaItem(d){
     var req = $http({
       method: "POST",
-      url: "/create_agenda_item",
+      url: "/mgmtDash/create_agenda_item",
       data: d
     });
 
@@ -65,7 +65,7 @@ function($http, $q){
   function removeItem(id){
     var req = $http({
       method: "POST",
-      url: "/delete_agenda_item/" + id
+      url: "/mgmtDash/delete_agenda_item/" + id
     });
   };
 
