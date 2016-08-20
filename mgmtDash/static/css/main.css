@@ -36,3 +36,11 @@
   float: left;
 }
 
+.darker{
+  background-color: grey;
+}
+
+.col span label{
+  text-align: right;
+}
+

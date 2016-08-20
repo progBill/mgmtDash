@@ -74,7 +74,23 @@ class Database:
         self.conn.commit()
         return True
 
+    def get_all_skills(self, focus=None):
+        c = self.get_cursor()
+        sql="""
+            SELECT focus, name, type
+            FROM skills
+        """
 
+        where = ""
+        if focus:
+            where = """
+                WHERE focus = %s
+            """
+            c.execute(sql+where, focus)
+            return c.fetchall()
+        else:
+            c.execute(sql)
+            return c.fetchall()
 
 
 if __name__ == '__main__':

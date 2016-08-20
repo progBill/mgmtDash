@@ -23,6 +23,13 @@ def main():
     agenda = DB().get_agenda_items()
     return render_template('entry.html', agenda=agenda)
 
+@mgmtDash_BP.route('/pdp', methods=['GET'])
+def pdp():
+    pdps = []
+    for r in DB().get_all_skills():
+        pdps.append({'focus': r[0], 'name':r[1], 'type':r[2]})
+    return render_template('pdp.html', pdp_items=sorted(pdps))
+
 ################
 ## AJAX CALLS ##
 ################
