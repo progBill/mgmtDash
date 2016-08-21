@@ -9,3 +9,6 @@ app.register_blueprint(mgmtDash_BP, url_prefix='/mgmtDash')
 @app.route('/')
 def landing():
     return "You've arrived"
+
+
+

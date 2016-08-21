@@ -11,7 +11,7 @@ import json
 from data.data_access import Database as DB
 from data.agenda_item import Agenda_Item
 
-mgmtDash_BP = Blueprint('mgmtDash', __name__,template_folder='templates', static_folder='static') 
+mgmtDash_BP = Blueprint('mgmtDash_BP', __name__,template_folder='templates', static_folder='static') 
 
 ###########1
 ## VIEWS ##
