@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, url_for
 from mgmtDash.mgmt_views import mgmtDash_BP
 
 app = Flask(__name__, instance_relative_config=True)
@@ -11,7 +11,7 @@ app.register_blueprint(mgmtDash_BP, url_prefix='/mgmtDash')
 
 @app.route('/')
 def landing():
-    return "You've arrived"
+    return "Check out <a href='{}'>Management Dashboard</a>".format('./mgmtDash')
 
 
 

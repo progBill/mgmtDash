@@ -19,7 +19,7 @@ mgmtDash_BP = Blueprint('mgmtDash_BP', __name__,template_folder='templates', sta
 
 @mgmtDash_BP.route('/', methods=['GET'])
 @mgmtDash_BP.route('/entry', methods=['GET'])
-def main():
+def mgmt_main():
     agenda = DB().get_agenda_items()
     return render_template('entry.html', agenda=agenda)
 
