@@ -74,29 +74,29 @@ class Database:
         self.conn.commit()
         return True
 
-    def get_all_skills(self, focus=None):
-        c = self.get_cursor()
-        sql="""
-            SELECT focus, name, type
-            FROM skills
-        """
+#    def get_all_skills(self):
+#        c = self.get_cursor()
+#        sql="""
+#            SELECT id, node_name, parent_id
+#            FROM skills
+#        """
 
-        where = ""
-        if focus:
-            where = """
-                WHERE focus = %s
-            """
-            c.execute(sql+where, focus)
-            return c.fetchall()
-        else:
-            c.execute(sql)
-            return c.fetchall()
+#        c.execute(sql)
+#        rst = c.fetchall()
+        
+#        skills =[]
+#        for i,x in enumerate(rst):
+#            a = list(x)
+#            skills.append({'id':a[0], 'name':a[1], 'parent':a[2]} )
+
+#        skills = sorted(skills, key= lambda x: x['id'])
+
+#        return skills
 
 
 if __name__ == '__main__':
+    import json
     asdf = Database()
-#    asdf.remove_agenda_item(11)
-    print asdf.get_agenda_items()
-
+    print json.dumps( asdf.get_all_skills() )
 
 

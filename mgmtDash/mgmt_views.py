@@ -23,12 +23,12 @@ def mgmt_main():
     agenda = DB().get_agenda_items()
     return render_template('entry.html', agenda=agenda)
 
-@mgmtDash_BP.route('/pdp', methods=['GET'])
-def pdp():
-    pdps = []
-    for r in DB().get_all_skills():
-        pdps.append({'focus': r[0], 'name':r[1], 'type':r[2]})
-    return render_template('pdp.html', pdp_items=sorted(pdps))
+#@mgmtDash_BP.route('/pdp', methods=['GET'])
+#def pdp():
+#    pdps = []
+#    for r in DB().get_all_skills():
+#        pdps.append({'focus': r[0], 'name':r[1], 'type':r[2]})
+#    return render_template('pdp.html', pdp_items=sorted(pdps))
 
 ################
 ## AJAX CALLS ##
@@ -54,4 +54,12 @@ def agenda_maker():
     DB().save_agenda_item(topic, meeting)
 
     return json.dumps({'save':'success'})
+
+if __name__ == '__main__':
+    from flask import Flask
+    app = Flask(__name__)
+    app.register_blueprint(mgmtDash_BP, url_prefix='/mgmtDash')
+
+    app.run()
+
 
