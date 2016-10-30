@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDP Form</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css') }}" />
+</head>
+<body>
+<div class="pure-g">
+<form id="skill_form" action="/pdp/save_skills" method="POST" class="pure-u-1">
+<div class="pure-u-1">
+    <label label-for="key">Key:</label><input type="text" id="key" />
+    <input type="submit" value="commit current" />
+</div>
+<hr />{% for domain in pdp_items %}
+<div class="col pure-u-1-5">
+    <h4>{{ domain.name }}</h4>{% for focus in domain.data %}
+    <h5>{{ focus.name }}</h5>
+    <ul>{% for skill in focus.data %}
+        <li>
+            <label class="pure-u-4-5"  label-for="{{ skill.id }}">{{ skill.name }}</label>
+            <select class="pure-u-1-12" id="{{ skill.id }}" type="text" >
+                <option value="0">0 - Wait..  What..?</option>
+                <option value='1'>1 - I've heard of it</option>
+                <option value='2'>2 - I can do it with Google</option>
+                <option value='3'>3 - I can do it</option>
+                <option value='4'>4 - I can answer SO questions about it</option>
+                <option value='5'>5 - I can lead a team of people to do it</option>
+            </select>
+        </li>{% endfor %}
+    </ul>{% endfor %}
+</div>
+{% endfor %}
+</form>
+</div>
+</body>
+</html>
+
